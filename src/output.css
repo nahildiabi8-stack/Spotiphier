@@ -190,6 +190,9 @@
   .bottom-0 {
     bottom: calc(var(--spacing) * 0);
   }
+  .bottom-10 {
+    bottom: calc(var(--spacing) * 10);
+  }
   .left-0 {
     left: calc(var(--spacing) * 0);
   }

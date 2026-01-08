@@ -1,8 +1,6 @@
 <?php
 session_start();
 require_once "./utils/connexion.php";
-$trucpafetcher = $db->query("SELECT * FROM musiques");
-$trucbon = $trucpafetcher->fetchAll(PDO::FETCH_ASSOC);
 
 
 if (!isset($_SESSION['nom'])) {
@@ -108,39 +106,42 @@ if (!isset($_SESSION['nom'])) {
     <section class="border-solid border-[#44434b]  border-8 rounded-2xl">
         <div class="bg-white/13">
 
-            <form class="grid grid-cols-1 md:grid-cols-3 gap-8 justify-items-center pb-8 pt-5">
-                <?php foreach ($musiques as $musique): ?>
-                    <div class="border-solid border-[#ffffff8e]    border-1 rounded-2xl">
-                        <div class="bg-linear-to-r from-[#6A1E70] via-[#821E50] to-[#284C62] w-64 h-64 p-4 rounded-2xl flex flex-col gap-3 text-white">
+           <div class="grid grid-cols-1 md:grid-cols-3 gap-8 justify-items-center pb-8 pt-5">
+<?php foreach ($musiques as $musique): ?>
+    <div class="border-solid border-[#ffffff8e] border rounded-2xl">
+        <div class="bg-linear-to-r from-[#6A1E70] via-[#821E50] to-[#284C62] w-64 h-64 p-4 rounded-2xl flex flex-col gap-3 text-white">
 
+            <h2 class="font-bold"><?= htmlspecialchars($musique['musique']) ?></h2>
+            <p class="text-sm">Description: <?= htmlspecialchars($musique['description']) ?></p>
+            <p class="text-sm">Album: <?= htmlspecialchars($musique['Album']) ?></p>
+            <p class="text-sm">Artiste: <?= htmlspecialchars($musique['Artiste']) ?></p>
 
-                            <h2 class="font-bold"><?= htmlspecialchars($musique['musique']) ?></h2>
+            <button type="button"
+                onclick="playtruc('<?= htmlspecialchars($musique['fichier']) ?>')"
+                class="mt-auto bg-black/30 rounded py-1">
+                Play
+            </button>
 
+            <button type="button"
+                onclick="pauselamusique()"
+                class="bg-black/30 rounded py-1">
+                Pause
+            </button>
 
-                            <p class="text-sm">Description: <?= htmlspecialchars($musique['description']) ?></p>
-
-
-                            <p class="text-sm">Album: <?= htmlspecialchars($musique['Album']) ?></p>
-
-
-                            <p class="text-sm">Artiste: <?= htmlspecialchars($musique['Artiste']) ?></p>
-
-
-                            <button type="button"
-                                onclick="playtruc('<?= htmlspecialchars($musique['fichier']) ?>')"
-                                class="mt-auto bg-black/30 rounded py-1">
-                                Play
-                            </button>
-
-                            <button type="button"
-                                onclick="pauselamusique()"
-                                class="bg-black/30 rounded py-1">
-                                Pause
-                            </button>
-                        </div>
-                    </div>
-                <?php endforeach; ?>
+            <!-- ✅ FORMULAIRE PAR MUSIQUE -->
+            <form action="./process/processajtmusiquedansplaylist.php" method="POST">
+                <input type="hidden" name="musiques_id" value="<?= $musique['id'] ?>">
+                <button type="submit"
+                    class="bg-black/30 rounded w-full mt-2">
+                    Mettre dans la playlist
+                </button>
             </form>
+
+        </div>
+    </div>
+<?php endforeach; ?>
+</div>
+
         </div>
     </section>
 
@@ -160,7 +161,7 @@ if (!isset($_SESSION['nom'])) {
 
 
 
-   
+
 
     <div class="text-center pb-8">
         <a href="./ajtmusique.php" class="bg-linear-to-r from-[#ffffff]  to-[#EED3F8] font-bold text-transparent bg-clip-text text-3xl">
@@ -168,20 +169,29 @@ if (!isset($_SESSION['nom'])) {
         </a>
     </div>
 
+
+
     <div class="text-center pb-8">
         <a href="./process/processdeconnecte.php" class="bg-linear-to-r from-[#ffffff]  to-[#EED3F8] font-bold text-transparent bg-clip-text text-3xl">
             Déconnecte-Toi
         </a>
     </div>
-    <div class="bg-black justify-center items-center self-center w-96 h-96 border-solid border-[#44434b]  border-8 rounded-2xl  hidden" id="volumeaudio">
- <div class="justify-center items-center" id="volumeaudio">
-        <p class="  bg-linear-to-r font-bold from-[#6A1E70] via-[#821E50] to-[#284C62] text-transparent bg-clip-text text-2xl">
-            Volume d'Audio
-        </p>
 
-        <input id="audiobar" type="range" value="100" min="0" max="100" step="1"
-            class="-full max-w-xl">
+     <div class="text-center pb-8">
+        <a href="./profilgars.php" class="bg-linear-to-r from-[#ffffff]  to-[#EED3F8] font-bold text-transparent bg-clip-text text-3xl">
+            Ta playlist
+        </a>
     </div>
+
+    <div class="bg-black justify-center items-center self-center w-96 h-96 border-solid border-[#44434b]  border-8 rounded-2xl  hidden" id="volumeaudio">
+        <div class="justify-center items-center" id="volumeaudio">
+            <p class="  bg-linear-to-r font-bold from-[#6A1E70] via-[#821E50] to-[#284C62] text-transparent bg-clip-text text-2xl">
+                Volume d'Audio
+            </p>
+
+            <input id="audiobar" type="range" value="100" min="0" max="100" step="1"
+                class="-full max-w-xl">
+        </div>
 
     </div>
     <div class=" w-full fixed bottom-0 left-0 right-0 bg-[#13101F] text-white  p-6 ">

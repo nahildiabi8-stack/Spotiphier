@@ -18,7 +18,7 @@ $trucbon = $trucpafetcher->fetchAll(PDO::FETCH_ASSOC);
 
 
     <section class="flex flex-col items-center ">
-        <div class=" flex flex-col  w-96 h-128 text-center pt-25 bg-gradient-to-r from-[#6A1E70] via-[#821E50] to-[#284C62]">
+        <div class=" flex flex-col  w-96 h-128 text-center pt-25 bg-linear-to-r from-[#6A1E70] via-[#821E50] to-[#284C62]">
             <form class="flex flex-col justify-center items-center text-white gap-8" action="process/processajtmusique.php" method="POST" enctype="multipart/form-data">
 
                 <input class="text-center" type="text" name="titre" placeholder="nom d'la musique" required>
@@ -33,7 +33,7 @@ $trucbon = $trucpafetcher->fetchAll(PDO::FETCH_ASSOC);
 
                 <button type="submit">Ajouter</button>
                 
-                  <a class="text-white inline-block text-transparent bg-clip-text pt-4 pb-4" href="./pagemain.php">reviens en arriere
+                  <a class="text-white inline-block bg-clip-text pt-4 pb-4" href="./pagemain.php">reviens en arriere
             </a>
             </form>
            
