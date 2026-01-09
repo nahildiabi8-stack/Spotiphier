@@ -24,10 +24,44 @@ if (!isset($_SESSION['nom'])) {
 
     <audio id="audioPlayer"></audio>
 
-    <header class="flex justify-center items-center text-5xl pt-8 pb-24 font-bold">
-        <h1 class="bg-linear-to-r from-[#ffffff]  to-[#EED3F8] text-transparent bg-clip-text">
+    <header class=" flex   pb-24 font-bold gap-8 ">
+        <div class="flex flex-row text-5xl text-center justify-center items-center">
+
+        
+        <h1 class=" self-center text-center justify-center items-center pt-8  bg-linear-to-r from-[#ffffff]  to-[#EED3F8] text-transparent bg-clip-text">
             Bienvenue sur Spotiphi, <?= htmlspecialchars($_SESSION['nom']) ?>!
         </h1>
+        </div>
+
+     <div class="flex flex-row self-end md:hidden">
+                <p class="text-white text-2xl" onclick="ouvremenutop()">☰</p>
+            </div>
+
+            <div class="hidden bg-black w-full rounded-2xl p-5 md:hidden " id="menudutop">
+                  
+       <a href="./ajtmusique.php" class="bg-linear-to-r  from-[#ffffff]  to-[#EED3F8] text-transparent bg-clip-text">
+            Ajoute une musique
+        </a>
+         <a href="./profilgars.php" class="bg-linear-to-r  from-[#ffffff]  to-[#EED3F8] text-transparent bg-clip-text">
+            Ta playlist
+        </a>
+         <a href="./process/processdeconnecte.php" class="bg-linear-to-r text-1xl from-[#ffffff]  to-[#EED3F8] text-transparent bg-clip-text">
+           Déconnecte toi
+        </a>
+            </div>
+        <div class="hidden    justify-end items-end text-1xl pt-8   font-bold gap-8 md:flex">
+
+        
+       <a href="./ajtmusique.php" class="bg-linear-to-r  from-[#ffffff]  to-[#EED3F8] text-transparent bg-clip-text">
+            Ajoute une musique
+        </a>
+         <a href="./profilgars.php" class="bg-linear-to-r  from-[#ffffff]  to-[#EED3F8] text-transparent bg-clip-text">
+            Ta playlist
+        </a>
+         <a href="./process/processdeconnecte.php" class="bg-linear-to-r text-1xl from-[#ffffff]  to-[#EED3F8] text-transparent bg-clip-text">
+           Déconnecte toi
+        </a>
+        </div>
     </header>
 
 
@@ -163,25 +197,12 @@ if (!isset($_SESSION['nom'])) {
 
 
 
-    <div class="text-center pb-8">
-        <a href="./ajtmusique.php" class="bg-linear-to-r from-[#ffffff]  to-[#EED3F8] font-bold text-transparent bg-clip-text text-3xl">
-            Ajouter une musique
-        </a>
-    </div>
+   
 
 
 
-    <div class="text-center pb-8">
-        <a href="./process/processdeconnecte.php" class="bg-linear-to-r from-[#ffffff]  to-[#EED3F8] font-bold text-transparent bg-clip-text text-3xl">
-            Déconnecte-Toi
-        </a>
-    </div>
 
-     <div class="text-center pb-8">
-        <a href="./profilgars.php" class="bg-linear-to-r from-[#ffffff]  to-[#EED3F8] font-bold text-transparent bg-clip-text text-3xl">
-            Ta playlist
-        </a>
-    </div>
+
 
     <div class="bg-black justify-center items-center self-center w-96 h-96 border-solid border-[#44434b]  border-8 rounded-2xl  hidden" id="volumeaudio">
         <div class="justify-center items-center" id="volumeaudio">
@@ -220,6 +241,7 @@ if (!isset($_SESSION['nom'])) {
         const progressBar = document.getElementById("progressBar");
         const volume = document.getElementById("audiobar");
         const volumeaudio = document.getElementById("volumeaudio");
+        const les3trucs = document.getElementById("menudutop");
 
         function playtruc(file) {
             if (!file) return;
@@ -233,6 +255,10 @@ if (!isset($_SESSION['nom'])) {
 
         function ouvremenu() {
             volumeaudio.classList.toggle("hidden");
+        }
+
+        function ouvremenutop() {
+            les3trucs.classList.toggle("hidden");
         }
 
         audio.addEventListener("timeupdate", () => {
