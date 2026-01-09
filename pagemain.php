@@ -61,6 +61,9 @@ if ($userId) {
             <a href="./lepluspopulaire.php" class="bg-linear-to-r  from-[#ffffff]  to-[#EED3F8] text-transparent bg-clip-text">
                 Les musiques les plus populaires
             </a>
+               <a href="./statistiques.php" class="bg-linear-to-r text-1xl from-[#ffffff]  to-[#EED3F8] text-transparent bg-clip-text">
+                Tes statistiques
+            </a>
            
             <a href="./process/processdeconnecte.php" class="bg-linear-to-r text-1xl from-[#ffffff]  to-[#EED3F8] text-transparent bg-clip-text">
                 Déconnecte toi
@@ -81,7 +84,9 @@ if ($userId) {
             <a href="./lepluspopulaire.php" class="bg-linear-to-r  from-[#ffffff]  to-[#EED3F8] text-transparent bg-clip-text">
                 Les musiques les plus populaires
             </a>
-           
+          <a href="./statistiques.php" class="bg-linear-to-r text-1xl from-[#ffffff]  to-[#EED3F8] text-transparent bg-clip-text">
+                Tes statistiques
+            </a>
             <a href="./process/processdeconnecte.php" class="bg-linear-to-r text-1xl from-[#ffffff]  to-[#EED3F8] text-transparent bg-clip-text">
                 Déconnecte toi
             </a>
@@ -160,6 +165,7 @@ if ($userId) {
 
 <?php
 $vue = 0;
+$musiqueecounter = 0;
 ?>
 
     <form method="get" class="flex flex-col gap-4">
@@ -183,9 +189,9 @@ $vue = 0;
                             </div>
 
                             <h2 class="font-bold text-lg mb-2"><?= htmlspecialchars($musique['musique']) ?></h2>
-                            <p class="text-xs text-gray-200">Description: <?= htmlspecialchars($musique['description']) ?></p>
-                            <p class="text-xs text-gray-200">Album: <?= htmlspecialchars($musique['Album']) ?></p>
-                            <p class="text-xs text-gray-200">Artiste: <?= htmlspecialchars($musique['Artiste']) ?></p>
+                            <p class="text-xs text-gray-200"><strong class="font-bold">Description :</strong> <?= htmlspecialchars($musique['description']) ?></p>
+                            <p class="text-xs text-gray-200"><strong class="font-bold">Album :</strong> <?= htmlspecialchars($musique['Album']) ?></p>
+                            <p class="text-xs text-gray-200"><strong class="font-bold">Artiste :</strong> <?= htmlspecialchars($musique['Artiste']) ?></p>
 
                             <div class="flex gap-2 mt-auto">
                                 <button type="button"

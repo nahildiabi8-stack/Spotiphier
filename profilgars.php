@@ -58,6 +58,10 @@ if ($userId) {
             <a href="./lepluspopulaire.php" class="bg-linear-to-r from-[#ffffff] to-[#EED3F8] text-transparent bg-clip-text">
                 Les musiques les plus populaires
             </a>
+
+             <a href="./statistiques.php" class="bg-linear-to-r text-1xl from-[#ffffff]  to-[#EED3F8] text-transparent bg-clip-text">
+                Tes statistiques
+            </a>
             <a href="./process/processdeconnecte.php" class="bg-linear-to-r text-1xl from-[#ffffff] to-[#EED3F8] text-transparent bg-clip-text">
                 Déconnecte toi
             </a>
@@ -74,6 +78,10 @@ if ($userId) {
             </a>
             <a href="./lepluspopulaire.php" class="bg-linear-to-r from-[#ffffff] to-[#EED3F8] text-transparent bg-clip-text">
                 Les musiques les plus populaires
+            </a>
+
+        <a href="./statistiques.php" class="bg-linear-to-r text-1xl from-[#ffffff]  to-[#EED3F8] text-transparent bg-clip-text">
+                Tes statistiques
             </a>
             <a href="./process/processdeconnecte.php" class="bg-linear-to-r text-1xl from-[#ffffff] to-[#EED3F8] text-transparent bg-clip-text">
                 Déconnecte toi
@@ -95,16 +103,16 @@ if ($userId) {
                     <?php foreach ($playlistMusiques as $index => $musique): ?>
                         <div class="border-solid border-[#ffffff8e] border rounded-2xl">
                             <div class="bg-linear-to-r from-[#6A1E70] via-[#821E50] to-[#284C62] w-64 h-64 p-4 rounded-2xl flex flex-col gap-3 text-white relative">
-                                
+
                                 <div class=" flex flex-row gap-3  absolute top-4 right-4 bg-yellow-400/20 rounded-lg py-1 px-3 border border-yellow-400/40">
                                     <img src="./yeux-rouges.png" class="w-5 h-5" alt="">
                                     <span class="text-white font-bold text-sm"><?= number_format($musique['views'] ?? 0, 0, ',', ' ') ?></span>
                                 </div>
 
                                 <h2 class="font-bold text-lg mb-2"><?= htmlspecialchars($musique['musique']) ?></h2>
-                                <p class="text-xs text-gray-200">Description <?= htmlspecialchars($musique['description']) ?></p>
-                                <p class="text-xs text-gray-200">Album: <?= htmlspecialchars($musique['Album']) ?></p>
-                                <p class="text-xs text-gray-200">Artiste: <?= htmlspecialchars($musique['Artiste']) ?></p>
+                                <p class="text-xs text-gray-200"><strong class="font-bold">Description :</strong> <?= htmlspecialchars($musique['description']) ?></p>
+                                <p class="text-xs text-gray-200"><strong class="font-bold">Album :</strong> <?= htmlspecialchars($musique['Album']) ?></p>
+                                <p class="text-xs text-gray-200"><strong class="font-bold">Artiste :</strong> <?= htmlspecialchars($musique['Artiste']) ?></p>
 
                                 <div class="flex gap-2 mt-auto">
                                     <button type="button"
@@ -207,7 +215,7 @@ if ($userId) {
             audio.src = file;
             audio.play();
             updatePlayPauseButton();
-            
+
             // Envoyer une requête pour incrémenter les vues
             if (musicId) {
                 fetch('./process/processajtviews.php', {
@@ -258,7 +266,7 @@ if ($userId) {
 
             audio.play();
             updatePlayPauseButton();
-            
+
             // Envoyer une requête pour incrémenter les vues
             if (song.id) {
                 fetch('./process/processajtviews.php', {
