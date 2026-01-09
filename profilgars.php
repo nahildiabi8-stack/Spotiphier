@@ -20,7 +20,6 @@ $stmt->execute([$_SESSION['user_id']]);
 $trucs = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 
-
 ?>
 
 <!DOCTYPE html>
@@ -141,11 +140,10 @@ if ($trucs == null) {
 
     <div class=" w-full fixed bottom-0 left-0 right-0 bg-[#13101F] text-white  p-6 ">
         <div class="flex flex-col items-center gap-4">
-
+          
             <p class="bg-linear-to-r font-bold from-[#6A1E70] via-[#821E50] to-[#284C62] text-transparent bg-clip-text text-2xl">
                 Moment d'Audio
-            </p>
-
+     
             <input id="progressBar" type="range" value="0" min="0" step="1"
                 class="w-full h max-w-xl">
 
