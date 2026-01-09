@@ -8,7 +8,6 @@ if (!isset($_SESSION['nom'])) {
     exit;
 }
 
-
 $stmt = $db->prepare("SELECT id FROM utilisateurs WHERE nom = ?");
 $stmt->execute([$_SESSION['nom']]);
 $user = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -43,19 +42,12 @@ if ($userId) {
     <audio id="audioPlayer"></audio>
 
     <header class=" flex   pb-24 font-bold gap-8 ">
-        <div class="flex flex-row text-5xl text-center justify-center items-center">
-
-
-            <h1 class=" self-center text-center justify-center items-center pt-8  bg-linear-to-r from-[#ffffff]  to-[#EED3F8] text-transparent bg-clip-text">
-                Bienvenue sur Spotiphi, <?= htmlspecialchars($_SESSION['nom']) ?>!
-            </h1>
-        </div>
 
         <div class="flex flex-row self-end md:hidden">
             <p class="text-white text-2xl" onclick="ouvremenutop()">☰</p>
         </div>
 
-        <div class="hidden bg-black w-full rounded-2xl p-5 md:hidden " id="menudutop">
+        <div class="hidden bg-black w-full rounded-2xl p-5 justify-center items-center  md:hidden " id="menudutop">
 
             <a href="./ajtmusique.php" class="bg-linear-to-r  from-[#ffffff]  to-[#EED3F8] text-transparent bg-clip-text">
                 Ajoute une musique
@@ -63,11 +55,18 @@ if ($userId) {
             <a href="./profilgars.php" class="bg-linear-to-r  from-[#ffffff]  to-[#EED3F8] text-transparent bg-clip-text">
                 Ta playlist
             </a>
+            <a href="./profilgars.php" class="bg-linear-to-r  from-[#ffffff]  to-[#EED3F8] text-transparent bg-clip-text">
+                Playlist Aléatoire
+            </a>
+            <a href="./lepluspopulaire.php" class="bg-linear-to-r  from-[#ffffff]  to-[#EED3F8] text-transparent bg-clip-text">
+                Les musiques les plus populaires
+            </a>
+           
             <a href="./process/processdeconnecte.php" class="bg-linear-to-r text-1xl from-[#ffffff]  to-[#EED3F8] text-transparent bg-clip-text">
                 Déconnecte toi
             </a>
         </div>
-        <div class="hidden    justify-end items-end text-1xl pt-8   font-bold gap-8 md:flex">
+        <div class="hidden    justify-center items-center text-1xl pt-8   font-bold gap-8 md:flex">
 
 
             <a href="./ajtmusique.php" class="bg-linear-to-r  from-[#ffffff]  to-[#EED3F8] text-transparent bg-clip-text">
@@ -76,13 +75,26 @@ if ($userId) {
             <a href="./profilgars.php" class="bg-linear-to-r  from-[#ffffff]  to-[#EED3F8] text-transparent bg-clip-text">
                 Ta playlist
             </a>
+            <a href="./profilgars.php" class="bg-linear-to-r  from-[#ffffff]  to-[#EED3F8] text-transparent bg-clip-text">
+                Playlist Aléatoire
+            </a>
+            <a href="./lepluspopulaire.php" class="bg-linear-to-r  from-[#ffffff]  to-[#EED3F8] text-transparent bg-clip-text">
+                Les musiques les plus populaires
+            </a>
+           
             <a href="./process/processdeconnecte.php" class="bg-linear-to-r text-1xl from-[#ffffff]  to-[#EED3F8] text-transparent bg-clip-text">
                 Déconnecte toi
             </a>
         </div>
     </header>
 
+    <div class="flex flex-row text-5xl text-center justify-center items-center pb-8 font-bold">
 
+
+        <h1 class=" self-center text-center justify-center items-center pt-8  bg-linear-to-r from-[#ffffff]  to-[#EED3F8] text-transparent bg-clip-text">
+            Bienvenue sur Spotiphi, <?= htmlspecialchars($_SESSION['nom']) ?>!
+        </h1>
+    </div>
 
     <?php
     require_once './utils/connexion.php';
@@ -146,7 +158,9 @@ if ($userId) {
     ?>
 
 
-
+<?php
+$vue = 0;
+?>
 
     <form method="get" class="flex flex-col gap-4">
         <input class="w-full p-4 text-1xl sm:text-2xl md:text-3xl font-thin rounded-3xl bg-linear-to-r from-[#6A1E70] via-[#821E50] to-[#284C62] text-white placeholder-57595E" type="text" name="search" placeholder="Chercher une musique"
@@ -161,30 +175,37 @@ if ($userId) {
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8 justify-items-center pb-8 pt-5">
                 <?php foreach ($musiques as $musique): ?>
                     <div class="border-solid border-[#ffffff8e] border rounded-2xl">
-                        <div class="bg-linear-to-r from-[#6A1E70] via-[#821E50] to-[#284C62] w-64 h-64 p-4 rounded-2xl flex flex-col gap-3 text-white">
+                        <div class="bg-linear-to-r from-[#6A1E70] via-[#821E50] to-[#284C62] w-64 h-64 p-4 rounded-2xl flex flex-col gap-3 text-white relative">
+                            
+                            <div class=" flex flex-row gap-3 absolute top-3 right-3 bg-yellow-400/20 rounded-lg py-1 px-2">
+                                <img src="./yeux-rouges.png" class="w-5 h-5" alt="">
+                                <span class="text-white font-bold text-sm"><?= number_format($musique['views'] ?? 0, 0, ',', ' ') ?></span>
+                            </div>
 
-                            <h2 class="font-bold"><?= htmlspecialchars($musique['musique']) ?></h2>
-                            <p class="text-sm">Description: <?= htmlspecialchars($musique['description']) ?></p>
-                            <p class="text-sm">Album: <?= htmlspecialchars($musique['Album']) ?></p>
-                            <p class="text-sm">Artiste: <?= htmlspecialchars($musique['Artiste']) ?></p>
+                            <h2 class="font-bold text-lg mb-2"><?= htmlspecialchars($musique['musique']) ?></h2>
+                            <p class="text-xs text-gray-200">Description: <?= htmlspecialchars($musique['description']) ?></p>
+                            <p class="text-xs text-gray-200">Album: <?= htmlspecialchars($musique['Album']) ?></p>
+                            <p class="text-xs text-gray-200">Artiste: <?= htmlspecialchars($musique['Artiste']) ?></p>
 
-                            <button type="button"
-                                onclick="playtruc('<?= htmlspecialchars($musique['fichier']) ?>')"
-                                class="mt-auto bg-black/30 rounded py-1">
-                                Play
-                            </button>
+                            <div class="flex gap-2 mt-auto">
+                                <button type="button"
+                                    onclick="playtruc('<?= htmlspecialchars($musique['fichier']) ?>', <?= $musique['id'] ?>)"
+                                    class="flex-1 bg-black/30 rounded py-1"> 
+                                    Play
+                                </button>
 
-                            <button type="button"
-                                onclick="pauselamusique()"
-                                class="bg-black/30 rounded py-1">
-                                Pause
-                            </button>
+                                <button type="button"
+                                    onclick="pauselamusique()"
+                                    class="flex-1 bg-black/30 rounded py-1">
+                                    Pause
+                                </button>
+                            </div>
 
                             <!-- ✅ FORMULAIRE PAR MUSIQUE -->
                             <form action="./process/processajtmusiquedansplaylist.php" method="POST">
                                 <input type="hidden" name="musiques_id" value="<?= $musique['id'] ?>">
                                 <button type="submit"
-                                    class="bg-black/30 rounded w-full mt-2">
+                                    class="bg-[#80D39B]/50 rounded w-full py-1 text-sm">
                                     Mettre dans la playlist
                                 </button>
                             </form>
@@ -283,11 +304,22 @@ if ($userId) {
         const playlist = <?= json_encode($playlistMusiques) ?>;
         let currentIndex = 0;
 
-        function playtruc(file) {
+        function playtruc(file, musicId) {
             if (!file) return;
             audio.src = file;
             audio.play();
             updatePlayPauseButton();
+            
+            // Envoyer une requête pour incrémenter les vues
+            if (musicId) {
+                fetch('./process/processajtviews.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    },
+                    body: 'musiques_id=' + musicId
+                }).catch(error => console.error('Error updating views:', error));
+            }
         }
 
         function pauselamusique() {
@@ -328,6 +360,17 @@ if ($userId) {
 
             audio.play();
             updatePlayPauseButton();
+            
+            // Envoyer une requête pour incrémenter les vues
+            if (song.id) {
+                fetch('./process/processajtviews.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    },
+                    body: 'musiques_id=' + song.id
+                }).catch(error => console.error('Error updating views:', error));
+            }
         }
 
         function nextSong() {
