@@ -239,24 +239,24 @@ if ($userId) {
             <p class="bg-linear-to-r font-bold from-[#6A1E70] via-[#821E50] to-[#284C62] text-transparent bg-clip-text text-lg">
                 Moment d'Audio et playlist
             </p>
-            
+
             <div class="text-center w-full">
                 <p class="text-white text-sm" id="currentSongTitle">Aucune chanson</p>
                 <p class="text-gray-400 text-xs" id="currentSongArtist"></p>
             </div>
-            
+
             <input id="progressBar" type="range" value="0" min="0" step="1"
                 class="w-full h max-w-xl">
 
             <div class="flex flex-row justify-center gap-2">
                 <button onclick="previousSong()" class="bg-linear-to-r from-[#6A1E70] via-[#821E50] to-[#284C62] px-4 py-1 rounded-lg text-white font-bold text-sm">
-                     Précédent
+                    Précédent
                 </button>
                 <button id="playPauseBtn" onclick="togglePlayPause()" class="bg-linear-to-r from-[#6A1E70] via-[#821E50] to-[#284C62] px-4 py-1 rounded-lg text-white font-bold text-sm">
-                     Play
+                    Play
                 </button>
                 <button onclick="nextSong()" class="bg-linear-to-r from-[#6A1E70] via-[#821E50] to-[#284C62] px-4 py-1 rounded-lg text-white font-bold text-sm">
-                    Suivant 
+                    Suivant
                 </button>
             </div>
 
@@ -318,14 +318,14 @@ if ($userId) {
 
         function playSongAtIndex(index) {
             if (index < 0 || index >= playlist.length) return;
-            
+
             currentIndex = index;
             const song = playlist[currentIndex];
-            
+
             audio.src = song.fichier;
             currentSongTitle.textContent = song.musique;
             currentSongArtist.textContent = song.Artiste;
-            
+
             audio.play();
             updatePlayPauseButton();
         }
@@ -342,7 +342,7 @@ if ($userId) {
             if (currentIndex > 0) {
                 playSongAtIndex(currentIndex - 1);
             } else if (playlist.length > 0) {
-                playSongAtIndex(playlist.length - 1); 
+                playSongAtIndex(playlist.length - 1);
             }
         }
 
@@ -372,7 +372,7 @@ if ($userId) {
             audio.volume = e.target.value / 100;
         });
 
-    
+
         if (playlist.length > 0) {
             currentSongTitle.textContent = playlist[0].musique;
             currentSongArtist.textContent = playlist[0].Artiste;
